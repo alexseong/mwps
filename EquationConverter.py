@@ -16,17 +16,17 @@ class EquationConverter():
     def show_expression_tree(self):
         print(self.tree.levelorder())
 
-    def __filter_equation(self, original_equation):
+    def __filter_equation(self, equation):
         equation_equals = ""
 
         # Clean the equation
         try:
             equation_equals = re.search(r"([a-z]+(\s+)?=|=(\s+)?[a-z]+)", equation).group(1)
-            equation_equals = re.sub("=", "", eq)
+            equation_equals = re.sub("=", "", equation_equals)
         except:
             pass
         
-        equation_equals = re.sub(r"([a-z]+(\s+)?=|=(\s+)?[a-z]+)", "", equation_equals)
+        equation = re.sub(r"([a-z]+(\s+)?=|=(\s+)?[a-z]+)", "", equation)
 
         return equation.replace(' ', ""), equation_equals.replace(' ', "")
 
@@ -62,11 +62,19 @@ class EquationConverter():
 
         return output
 
-
     def __get_postfix_from_infix(self):
         return self.__infix_to_postfix()
+
+    def __fill_tree(self):
+        try:
+            self.tree.tree_from_postfix(sefl.postfix_expression)
 
     def eqset(self, equation="DEFAULT"):
         self.original_equation = equation
         self.postfix_expression = self.__get_postfix_from_infix()
+        self.__fill_tree()
+
+    
+
+
 
