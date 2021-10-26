@@ -67,7 +67,9 @@ class EquationConverter():
 
     def __fill_tree(self):
         try:
-            self.tree.tree_from_postfix(sefl.postfix_expression)
+            self.tree.tree_from_postfix(self.postfix_expression)
+        except:
+            pass        
 
     def eqset(self, equation="DEFAULT"):
         self.original_equation = equation

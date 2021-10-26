@@ -22,3 +22,10 @@ class ExpressionTree():
         node = self.__is_root_or_self(node)
 
         return []
+
+    def tree_from_postfix(self, postfix_expression):
+        postfix_expression_array = re.findall(r"\d*\.?\d+|[^0-9]", postfix_expression)
+
+        elements = []
+        for element in postfix_expression_array:
+            pass
