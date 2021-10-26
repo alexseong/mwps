@@ -22,4 +22,3 @@ class ExpressionTree():
         node = self.__is_root_or_self(node)
 
         return []
-

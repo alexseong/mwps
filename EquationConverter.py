@@ -15,3 +15,58 @@ class EquationConverter():
 
     def show_expression_tree(self):
         print(self.tree.levelorder())
+
+    def __filter_equation(self, original_equation):
+        equation_equals = ""
+
+        # Clean the equation
+        try:
+            equation_equals = re.search(r"([a-z]+(\s+)?=|=(\s+)?[a-z]+)", equation).group(1)
+            equation_equals = re.sub("=", "", eq)
+        except:
+            pass
+        
+        equation_equals = re.sub(r"([a-z]+(\s+)?=|=(\s+)?[a-z]+)", "", equation_equals)
+
+        return equation.replace(' ', ""), equation_equals.replace(' ', "")
+
+
+    def __infix_to_postfix(self):
+        filtered_expresseion, equation_equals = self.__filter_equation(self.original_equation)
+        self.equals_what = equation_equals
+
+        stack = Stack()
+        output = ""
+
+        split_expression = re.findall(r"(\d*\.?\d+|[^0-9])", filtered_expresseion)
+        for char in split_expression:
+            if char not in OPERATORS:
+                output += char
+            elif char == '(':
+                stack.push(char)
+            elif char == ')':
+                while not stack.isEmpty() and stack.peek() != '(':
+                    output += ' '
+                    output += stack.pop()
+                stack.pop()
+            else:
+                output += ' '
+                while not stack.isEmpty() and stack.peek() != '(' and PRIORITY[char] < PRIORITY[stack.peek()]:
+                    output += stack.pop()
+
+                stack.push(char)
+
+        while not stack.isEmpty():
+            output += ' '
+            output += stack.pop()
+
+        return output
+
+
+    def __get_postfix_from_infix(self):
+        return self.__infix_to_postfix()
+
+    def eqset(self, equation="DEFAULT"):
+        self.original_equation = equation
+        self.postfix_expression = self.__get_postfix_from_infix()
+
