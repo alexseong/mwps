@@ -11,12 +11,14 @@ from re import match
 import logging
 import yaml
 import sys
+import utils
 
 
 if not len(sys.argv) > 1:
     raise Exception("Please use a config file.")
 
 with open(abspath(sys.argv[1]), 'r', encoding='utf-8-sig') as yaml_file:
+    settings = yaml.load(yaml_file, Loader=yaml.FullLoader)
     settings = yaml.load(yaml_file, Loader=yaml.FullLoader)
 
 DATASET = settings["dataset"]
@@ -34,6 +36,7 @@ DATA_PATH = abspath("data/" + DATASET)
 USER_INPUT = settings["input"]
 EQUALS_SIGN = False
 SAVE = settings["save"]
+
 utils.MAX_LENGTH = 60
 
 
