@@ -27,3 +27,4 @@ tagging: lst
 # Other behavior
 input: False
 seed: 420365
+save: True
