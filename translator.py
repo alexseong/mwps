@@ -35,11 +35,45 @@ DATA_PATH = abspath("data/" + DATASET)
 USER_INPUT = settings["input"]
 EQUALS_SIGN = False
 SAVE = settings["save"]
-
 utils.MAX_LENGTH = 60
 
+if len(sys.argv) > 2:
+    LOSS_THRESHHOLD = float(sys.argv[2])
+else:
+    LOSS_THRESHHOLD = 0
+
+# If fine-tuning set this to a str containing the model name
+CKPT_MODEL = settings["model"]
+
+# text.SubwordTextEncoder / text.TextEncoder
+ENCODE_METHOD = tfds.deprecated.text.SubwordTextEncoder
+MIRRORED_STRATEGY = tf.distribute.MirroredStrategy(
+    cross_device_ops=tf.distribute.ReductionToOneDevice()
+)
+
+# Hyperparameters
+NUM_LAYERS = settings["layers"]
+D_MODEL = settings["d_model"]
+DFF = settings["dff"]
+NUM_HEADS = settings["heads"]
+DROPOUT = settings["dropout"]
+
+# Training settings
+EPOCHS = settings["epochs"]
+BATCH_SIZE = settings["batch"]
+GLOBAL_BATCH_SIZE = BATCH_SIZE * MIRRORED_STRATEGY.num_replicas_in_sync
+
+# Adam optimizer params
+BETA_1 = settings["beta_1"]
+BETA_2 = settings["beta_2"]
+EPSILON = 1e-9
 
 LIVE_MODE = EPOCHS == 0 and USER_INPUT
+
+# Random seed for shuffling the data
+SEED = settings["seed"]
+# Set the seed for random
+seed(SEED)
 
 if __name__ == "__main__":
     if LIVE_MODE:
