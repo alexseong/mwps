@@ -19,7 +19,6 @@ if not len(sys.argv) > 1:
 
 with open(abspath(sys.argv[1]), 'r', encoding='utf-8-sig') as yaml_file:
     settings = yaml.load(yaml_file, Loader=yaml.FullLoader)
-    settings = yaml.load(yaml_file, Loader=yaml.FullLoader)
 
 DATASET = settings["dataset"]
 DUPLICATION = settings["duplication"]
