@@ -168,3 +168,13 @@ if __name__ == "__main__":
     # Split
     AI2_TEST = AI2[:int(len(AI2) * TEST_SPLIT)]
     AI2 = AI2[int(len(AI2) * TEST_SPLIT):]
+
+    random.shuffle(AI2)
+    PROBLEM_LIST += AI2
+
+    # Randomize
+    random.shuffle(PROBLEM_LIST)
+
+    # AI2 testing data
+    test_pre_ai2 = convert_to(AI2_TEST, "prefix")
+    test_pos_ai2 = convert_to(AI2_TEST, "postfix")

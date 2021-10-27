@@ -76,6 +76,10 @@ class EquationConverter():
         self.postfix_expression = self.__get_postfix_from_infix()
         self.__fill_tree()
 
+    def expr_as_infix( self ):
+        inorder_list = self.tree.inorder()
+
+
     
 
 
