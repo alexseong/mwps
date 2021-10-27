@@ -3,6 +3,12 @@ import tensorflow as tf
 import tensorflow_datasets as tfds
 
 from transformer.network import create_masks, loss_function
+from time import time
+from random import seed, shuffle
+from os import makedirs, remove, environ
+from os.path import abspath, exists, join
+from re import match
+import logging
 import yaml
 import sys
 
@@ -37,5 +43,5 @@ if __name__ == "__main__":
     if LIVE_MODE:
         print("Starting the MWP Transformer live testing.")
     else:
-        print("Starting the MWP Transformer live testing.")
+        print("Starting the MWP Transformer training")
 
