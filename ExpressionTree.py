@@ -23,9 +23,29 @@ class ExpressionTree():
 
         return []
 
+    def __is_operator(self, value):
+        return value is '+' or value is '-' or value is '/' or value is '*' or value is '^'
+
     def tree_from_postfix(self, postfix_expression):
         postfix_expression_array = re.findall(r"\d*\.?\d+|[^0-9]", postfix_expression)
 
         elements = []
         for element in postfix_expression_array:
-            pass
+            if not re.match('\s+', element):
+                elements.append(element)
+        
+        stack = Stack()
+
+        for element in elements:
+            if self.__is_operator(element) is True:
+                subtree = Node(element)
+                subtree.right = stack.pop()
+                subtree.left = stack.pop()
+
+                stack.push(subtree)
+
+            else:
+                stack.push(Node(element))
+
+        self.root = stack.pop()
+
