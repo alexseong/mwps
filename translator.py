@@ -13,13 +13,11 @@ import yaml
 import sys
 import utils
 
-
 if not len(sys.argv) > 1:
     raise Exception("Please use a config file.")
 
 with open(abspath(sys.argv[1]), 'r', encoding='utf-8-sig') as yaml_file:
     settings = yaml.safe_load(yaml_file)
-
 
 DATASET = settings["dataset"]
 DUPLICATION = settings["duplication"]
@@ -90,13 +88,10 @@ else:
 TRAINED_PATH = abspath(f"models/trained/")
 MODEL_PATH = abspath(f"models/trained/{MODEL_NAME}/")
 
-TEXT_TOKENIZER_PATH = abspath(
-    f"models/trained/{MODEL_NAME}/tokenizers/{MODEL_NAME}_t.p")
-EQUATION_TOKENIZER_PATH = abspath(
-    f"models/trained/{MODEL_NAME}/tokenizers/{MODEL_NAME}_e.p")
+TEXT_TOKENIZER_PATH = abspath(f"models/trained/{MODEL_NAME}/tokenizers/{MODEL_NAME}_t.p")
+EQUATION_TOKENIZER_PATH = abspath(f"models/trained/{MODEL_NAME}/tokenizers/{MODEL_NAME}_e.p")
 
-ARE_TOKENIZERS_PRESENT = exists(TEXT_TOKENIZER_PATH) \
-    or exists(EQUATION_TOKENIZER_PATH)
+ARE_TOKENIZERS_PRESENT = exists(TEXT_TOKENIZER_PATH) or exists(EQUATION_TOKENIZER_PATH)
 
 tf.compat.v1.enable_eager_execution()
 
@@ -108,4 +103,13 @@ if __name__ == "__main__":
 
     if not exists(TRAINED_PATH):
         makedirs(TRAINED_PATH)
+
+    num_examples = 0
+
+    # if not isinstance(PRETRAIN, bool) and not LIVE_MODE:
+    print(not isinstance(PRETRAIN, bool))
+    print(isinstance(PRETRAIN, bool))
+    print(not LIVE_MODE)
+    print(LIVE_MODE)
+
 
