@@ -47,7 +47,7 @@ else:
 CKPT_MODEL = settings["model"]
 
 # text.SubwordTextEncoder / text.TextEncoder
-ENCODE_METHOD = tfds.deprecated.text.SubwordTextEncoder
+#ENCODE_METHOD = tfds.deprecated.text.SubwordTextEncoder
 MIRRORED_STRATEGY = tf.distribute.MirroredStrategy(
     cross_device_ops=tf.distribute.ReductionToOneDevice()
 )
@@ -76,9 +76,36 @@ SEED = settings["seed"]
 # Set the seed for random
 seed(SEED)
 
+tf.compat.v1.set_random_seed(SEED)
+
+if isinstance(CKPT_MODEL, str):
+    # If a model name is given train from that model
+    CONTINUE_FROM_CKPT = True
+    MODEL_NAME = CKPT_MODEL
+    CHECKPOINT_PATH = abspath(f"models/trained/{CKPT_MODEL}/")
+else:
+    CONTINUE_FROM_CKPT = False
+    MODEL_NAME = f"mwp_{NUM_LAYERS}_{NUM_HEADS}_{D_MODEL}_{DFF}_{int(time())}"
+
+TRAINED_PATH = abspath(f"models/trained/")
+MODEL_PATH = abspath(f"models/trained/{MODEL_NAME}/")
+
+TEXT_TOKENIZER_PATH = abspath(
+    f"models/trained/{MODEL_NAME}/tokenizers/{MODEL_NAME}_t.p")
+EQUATION_TOKENIZER_PATH = abspath(
+    f"models/trained/{MODEL_NAME}/tokenizers/{MODEL_NAME}_e.p")
+
+ARE_TOKENIZERS_PRESENT = exists(TEXT_TOKENIZER_PATH) \
+    or exists(EQUATION_TOKENIZER_PATH)
+
+tf.compat.v1.enable_eager_execution()
+
 if __name__ == "__main__":
     if LIVE_MODE:
         print("Starting the MWP Transformer live testing.")
     else:
         print("Starting the MWP Transformer training")
+
+    if not exists(TRAINED_PATH):
+        makedirs(TRAINED_PATH)
 
