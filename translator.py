@@ -12,6 +12,7 @@ import logging
 import yaml
 import sys
 import utils
+import preprocessing
 import pretraining 
 
 if not len(sys.argv) > 1:
@@ -111,5 +112,7 @@ if __name__ == "__main__":
         print("Getting pre-training data...")
 
         if PRETRAIN == "imdb":
+            # Pretrain on unlabelled english text for more in-depth understanding of english
+            english_dataset, num_examples = pretraining.imdb(remove_stop_words=REMOVE_STOP_WORDS, as_lemmas=LEMMAS)
 
 
