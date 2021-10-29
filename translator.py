@@ -12,6 +12,7 @@ import logging
 import yaml
 import sys
 import utils
+import pretraining 
 
 if not len(sys.argv) > 1:
     raise Exception("Please use a config file.")
@@ -106,10 +107,9 @@ if __name__ == "__main__":
 
     num_examples = 0
 
-    # if not isinstance(PRETRAIN, bool) and not LIVE_MODE:
-    print(not isinstance(PRETRAIN, bool))
-    print(isinstance(PRETRAIN, bool))
-    print(not LIVE_MODE)
-    print(LIVE_MODE)
+    if not isinstance(PRETRAIN, bool) and not LIVE_MODE:
+        print("Getting pre-training data...")
+
+        if PRETRAIN == "imdb":
 
 
