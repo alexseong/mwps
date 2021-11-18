@@ -157,6 +157,12 @@ def convert_to(problem_list, tag):
                 convert = EquationConverter()
                 convert.eqset(v)
 
+                if tag == "infix":
+                    ov = convert.expr_as_infix()
+                elif tag == 
+
+        
+
 
 if __name__ == "__main__":
     print("Transforming all original datasets...")
@@ -178,3 +184,4 @@ if __name__ == "__main__":
     # AI2 testing data
     test_pre_ai2 = convert_to(AI2_TEST, "prefix")
     test_pos_ai2 = convert_to(AI2_TEST, "postfix")
+

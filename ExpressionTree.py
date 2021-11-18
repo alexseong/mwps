@@ -49,3 +49,6 @@ class ExpressionTree():
 
         self.root = stack.pop()
 
+    def inorder(self, node="DEFAULT"):
+        
+
